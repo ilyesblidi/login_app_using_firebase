@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -8,6 +9,46 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  Future singIn() async {
+    String email = _emailController.text.trim();
+    String password = _passwordController.text.trim();
+
+    if(email.isEmpty || password.isEmpty){
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Please fill all the fields'),
+          backgroundColor: Colors.red,
+        )
+      );
+      return;
+    }
+
+    try {
+      // Add your sign-in logic here
+      // For example, using Firebase Auth:
+      // await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
+      await FirebaseAuth.instance.signInWithEmailAndPassword(email: email , password: password);
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Sign in successful'),
+          backgroundColor: Colors.green,
+        )
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Sign in failed: $e'),
+          backgroundColor: Colors.red,
+        )
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +89,9 @@ class _LoginPageState extends State<LoginPage> {
                       borderRadius: BorderRadius.circular(15),
                     ),
           
-                    child: TextField( decoration: InputDecoration(
+                    child: TextField(
+                      controller: _emailController,
+                      decoration: InputDecoration(
                       border: InputBorder.none,
                       hintText: 'Email',
                       icon: Icon(Icons.person),
@@ -67,6 +110,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
           
                     child: TextField(
+                      controller: _passwordController,
                       obscureText: true,
                       decoration: InputDecoration(
                       border: InputBorder.none,
@@ -78,19 +122,22 @@ class _LoginPageState extends State<LoginPage> {
           
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    padding: EdgeInsets.all(15),
-                    decoration: BoxDecoration(
-                      color: Colors.deepPurple,
-                      borderRadius: BorderRadius.circular(15)
-                    ),
-                    child: Center(
-                      child: Text(
-                        'SignIn', style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),),
+                  child: GestureDetector(
+                    onTap: singIn,
+                    child: Container(
+                      padding: EdgeInsets.all(15),
+                      decoration: BoxDecoration(
+                        color: Colors.deepPurple,
+                        borderRadius: BorderRadius.circular(15)
+                      ),
+                      child: Center(
+                        child: Text(
+                          'SignIn', style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),),
+                      ),
                     ),
                   ),
                 ),
