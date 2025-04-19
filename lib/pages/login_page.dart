@@ -2,7 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+
+  final VoidCallback showRegisterPage;
+
+  LoginPage({super.key, required this.showRegisterPage});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -12,6 +15,13 @@ class _LoginPageState extends State<LoginPage> {
 
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
 
   Future singIn() async {
     String email = _emailController.text.trim();
@@ -132,7 +142,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                       child: Center(
                         child: Text(
-                          'SignIn', style: TextStyle(
+                          'Sign In', style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
@@ -149,10 +159,13 @@ class _LoginPageState extends State<LoginPage> {
           
                     SizedBox(width: 10,),
           
-                    Text('Register now', style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: Colors.deepPurple,
-                    ),)
+                    GestureDetector(
+                      onTap: widget.showRegisterPage,
+                      child: Text('Register now', style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.deepPurple,
+                      ),),
+                    )
                   ],
                 ),
           
