@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import 'forgot_pw_page.dart';
+
 class LoginPage extends StatefulWidget {
 
   final VoidCallback showRegisterPage;
@@ -110,7 +112,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
           
                 Padding(
-                  padding: const EdgeInsets.all(15.0),
+                  padding: const EdgeInsets.all(10.0),
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 10 ,vertical: 5),
                     decoration: BoxDecoration(
@@ -127,6 +129,27 @@ class _LoginPageState extends State<LoginPage> {
                       hintText: 'Password',
                       icon: Icon(Icons.lock),
                     ), ),
+                  ),
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) {
+                            return ForgotPasswordPage();
+                          }, ) );
+                        },
+                        child: Text('Forget password?',
+                          style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blue,),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
           
@@ -163,7 +186,7 @@ class _LoginPageState extends State<LoginPage> {
                       onTap: widget.showRegisterPage,
                       child: Text('Register now', style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Colors.deepPurple,
+                        color: Colors.blue,
                       ),),
                     )
                   ],
