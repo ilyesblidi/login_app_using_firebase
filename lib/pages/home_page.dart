@@ -19,7 +19,8 @@ class _HomePageState extends State<HomePage> {
 
   Future getDocid() async {
     docIDs.clear();
-    await FirebaseFirestore.instance.collection('users').orderBy('phone number').get().then((snapshot) {
+    ///get where 'email' is EqualTo user.email
+    await FirebaseFirestore.instance.collection('users').where('email', isEqualTo: user.email) .get().then((snapshot) {
       snapshot.docs.forEach((doc) {
         //print( cpt + doc.reference);
         print('$cpt: ${doc.reference.id}');
