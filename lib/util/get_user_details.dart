@@ -18,7 +18,7 @@ class GetUserDetails extends StatelessWidget {
           if ( snapshot.connectionState == ConnectionState.done ) {
             if (snapshot.hasData) {
               Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
-              return Text('First Name: ${data['first name']}, Email: ${data['email']}');
+              return Text('${data['first name']} ${data['last name']}, Email: ${data['email']}');
             } else {
               return const Text('L O A D I N G');
             }

@@ -83,21 +83,12 @@ class _RegisterPageState extends State<RegisterPage> {
       password: password,
     );
 
-
-    print('Calling addUserDetails...');
-    ///add user details
-    ///
     await addUserDetails(
       _firstnameController.text.trim(),
       _lastnameController.text.trim(),
       _phoneController.text.trim(),
       _emailController.text.trim(),
     );
-    ///
-    ///
-    print('addUserDetails completed');
-
-
 
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(

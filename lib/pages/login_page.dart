@@ -40,10 +40,21 @@ class _LoginPageState extends State<LoginPage> {
     }
 
     try {
-      // Add your sign-in logic here
-      // For example, using Firebase Auth:
-      // await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
+
+      ///adding a circular progress indicator
+      showDialog(
+        context: context,
+        builder: (context) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      );
+
       await FirebaseAuth.instance.signInWithEmailAndPassword(email: email , password: password);
+
+      ///removing the circular progress indicator
+      Navigator.of(context).pop();
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
