@@ -73,9 +73,9 @@ class _LoginPageState extends State<LoginPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
 
-                SizedBox(height: MediaQuery.of(context).size.height * 0.2),
+              SizedBox(height: MediaQuery.of(context).size.height * 0.2),
 
-                Icon(Icons.android , size: 80,),
+              Icon(Icons.android , size: 80,),
                 
               Text('Hello again!', style: TextStyle(
                 fontSize: 40,

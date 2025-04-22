@@ -1,27 +1,31 @@
 plugins {
-    id("com.android.application")
-    id("kotlin-android")
+    id("com.android.application")  // Must come first
+    id("kotlin-android")           // Must come after Android plugin
     id("dev.flutter.flutter-gradle-plugin")
     id("com.google.gms.google-services")
 }
 
 android {
     namespace = "com.example.first_app_using_firebase"
-    compileSdk = flutter.compileSdkVersion.toInt()
+    compileSdk = 34
     ndkVersion = "27.0.12077973"
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_11.toString()
+        jvmTarget = "21"
+        freeCompilerArgs = freeCompilerArgs + listOf(
+            "-Xjdk-release=21",
+            "-opt-in=kotlin.RequiresOptIn"
+        )
     }
 
     defaultConfig {
         applicationId = "com.example.first_app_using_firebase"
-        minSdk = flutter.minSdkVersion.toInt()
+        minSdk = 23  // Set explicitly for Firebase compatibility
         targetSdk = flutter.targetSdkVersion.toInt()
         versionCode = flutter.versionCode.toInt()
         versionName = flutter.versionName
@@ -39,11 +43,8 @@ flutter {
 }
 
 dependencies {
-    implementation(platform("com.google.firebase:firebase-bom:33.12.0"))
-    implementation("com.google.firebase:firebase-analytics-ktx") // Recommended
-    implementation("com.google.firebase:firebase-auth-ktx") // If using auth
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22") // Add this
-
-    // Add any other Firebase products you're using
-    // implementation("com.google.firebase:firebase-firestore-ktx")
+    implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
+    implementation("com.google.firebase:firebase-analytics-ktx")
+    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:2.2.0-Beta1")
 }
